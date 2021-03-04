@@ -23,7 +23,7 @@ export default function authentication(Component, option, adminRoute = null) {
           }
         }
       });
-    }, []);
+    }, [dispatch, props.history]);
     return <Component {...props} />;
   }
 
