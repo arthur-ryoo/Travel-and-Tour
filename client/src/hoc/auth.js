@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { auth } from '../_actions/user_action';
 
 export default function authentication(Component, option, adminRoute = null) {
   function AuthenticationCheck(props) {
+    let user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export default function authentication(Component, option, adminRoute = null) {
         }
       });
     }, [dispatch, props.history]);
-    return <Component {...props} />;
+    return <Component {...props} user={user} />;
   }
 
   return AuthenticationCheck;
