@@ -4,6 +4,7 @@ import { registerUser } from '../../../_actions/user_action';
 
 function RegisterPage(props) {
   const dispatch = useDispatch();
+
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -14,18 +15,20 @@ function RegisterPage(props) {
     }
   );
 
+  const { name, email, password, confirmPassword } = userInput;
+
   const handleChange = (event) => {
     setUserInput({ [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (userInput.password !== userInput.confirmPassword)
+    if (password !== confirmPassword)
       return alert('Password confirmation must match password');
     let body = {
-      email: userInput.email,
-      password: userInput.password,
-      name: userInput.name,
+      email,
+      password,
+      name,
     };
     dispatch(registerUser(body)).then((response) => {
       if (response.payload.success) {
@@ -54,28 +57,23 @@ function RegisterPage(props) {
         <input
           type="email"
           name="email"
-          value={userInput.email}
+          value={email}
           onChange={handleChange}
         />
         <label>Name</label>
-        <input
-          type="text"
-          name="name"
-          value={userInput.name}
-          onChange={handleChange}
-        />
+        <input type="text" name="name" value={name} onChange={handleChange} />
         <label>Password</label>
         <input
           type="password"
           name="password"
-          value={userInput.password}
+          value={password}
           onChange={handleChange}
         />
         <label>Confirm Password</label>
         <input
           type="password"
           name="confirmPassword"
-          value={userInput.confirmPassword}
+          value={confirmPassword}
           onChange={handleChange}
         />
         <br />

@@ -4,6 +4,7 @@ import { loginUser } from '../../../_actions/user_action';
 
 function LoginPage(props) {
   const dispatch = useDispatch();
+
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -12,13 +13,15 @@ function LoginPage(props) {
     }
   );
 
+  const { email, password } = userInput;
+
   const handleChange = (event) => {
     setUserInput({ [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let body = { email: userInput.email, password: userInput.password };
+    let body = { email, password };
     dispatch(loginUser(body)).then((response) => {
       if (response.payload.loginSuccess) {
         props.history.push('/');
@@ -46,14 +49,14 @@ function LoginPage(props) {
         <input
           type="email"
           name="email"
-          value={userInput.email}
+          value={email}
           onChange={handleChange}
         />
         <label>Password</label>
         <input
           type="password"
           name="password"
-          value={userInput.password}
+          value={password}
           onChange={handleChange}
         />
         <br />
