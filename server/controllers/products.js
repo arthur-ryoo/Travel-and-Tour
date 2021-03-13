@@ -22,7 +22,27 @@ function uploadProduct(req, res) {
   });
 }
 
+async function getAllProducts(req, res) {
+  const pageSize = 4;
+  const page = parseInt(req.query.page || '0');
+  const total = await Product.countDocuments({});
+  const totalPages = await Math.ceil(total / pageSize);
+  Product.find()
+    .limit(pageSize)
+    .skip(pageSize * page)
+    .populate('userId')
+    .exec((err, productInfo) => {
+      if (err) return res.status(400).json({ success: false, err });
+      return res.status(200).json({
+        success: true,
+        totalPages,
+        productInfo,
+      });
+    });
+}
+
 module.exports = {
   uploadImage,
   uploadProduct,
+  getAllProducts,
 };
