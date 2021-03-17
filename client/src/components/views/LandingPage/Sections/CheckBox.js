@@ -4,37 +4,38 @@ import { Collapse, Checkbox } from 'antd';
 const { Panel } = Collapse;
 
 function CheckBox(props) {
-  const [checked, setChecked] = useState([]);
+  const [checkedValues, setCheckedValues] = useState([]);
 
   const handleToggle = (value) => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = checkedValues.indexOf(value);
+    const newCheckedValues = [...checkedValues];
 
     if (currentIndex === -1) {
-      newChecked.push(value);
+      newCheckedValues.push(value);
     } else {
-      newChecked.splice(currentIndex, 1);
+      newCheckedValues.splice(currentIndex, 1);
     }
-    setChecked(newChecked);
-    props.handleFilters(newChecked);
+
+    setCheckedValues(newCheckedValues);
+    props.handleFilters(newCheckedValues);
   };
 
   const renderCheckBoxLists = () =>
     props.list &&
-    props.list.map((value, index) => (
-      <React.Fragment key={index}>
+    props.list.map((item) => (
+      <React.Fragment key={item._id}>
         <Checkbox
-          onChange={() => handleToggle(value._id)}
-          checked={checked.indexOf(value._id) === -1 ? false : true}
+          onChange={() => handleToggle(item._id)}
+          checked={checkedValues.indexOf(item._id) === -1 ? false : true}
         />
-        <span>{value.name}</span>
+        <span>{item.name}</span>
       </React.Fragment>
     ));
 
   return (
     <div>
-      <Collapse defaultActiveKey={['1']}>
-        <Panel header="This is panel header 1" key="1">
+      <Collapse defaultActiveKey={['0']}>
+        <Panel header="Continents" key="1">
           {renderCheckBoxLists()}
         </Panel>
       </Collapse>
