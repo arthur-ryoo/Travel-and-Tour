@@ -9,7 +9,6 @@ export default function authentication(Component, option, adminRoute = null) {
 
     useEffect(() => {
       dispatch(auth()).then((response) => {
-        console.log(response);
         if (!response.payload.isAuth) {
           if (option) {
             props.history.push('/login');
@@ -18,7 +17,7 @@ export default function authentication(Component, option, adminRoute = null) {
           if (adminRoute && !response.payload.isAdmin) {
             props.history.push('/');
           } else {
-            if (!option) {
+            if (option === false) {
               props.history.push('/');
             }
           }
