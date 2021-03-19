@@ -10,6 +10,8 @@ function auth(req, res) {
     lastName: req.user.lastName,
     role: req.user.role,
     image: req.user.image,
+    cart: req.user.cart,
+    history: req.user.history,
   });
 }
 

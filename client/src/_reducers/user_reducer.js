@@ -4,6 +4,7 @@ import {
   REGISTER_USER,
   AUTH_USER,
   ADD_TO_CART,
+  GET_CART_ITEMS,
 } from '../_actions/types';
 
 export default function userReducer(state = {}, action) {
@@ -24,6 +25,8 @@ export default function userReducer(state = {}, action) {
           cart: action.payload,
         },
       };
+    case GET_CART_ITEMS:
+      return { ...state };
     default:
       return state;
   }
