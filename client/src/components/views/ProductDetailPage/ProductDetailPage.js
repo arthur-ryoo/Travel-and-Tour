@@ -9,14 +9,12 @@ function ProductDetailPage(props) {
 
   const productId = props.match.params.productId;
   useEffect(() => {
-    axios.get(`/api/products/${productId}?type=single`).then((response) => {
-      if (response.data.success) {
-        console.log(response.data.productInfo[0]);
-        setProduct(response.data.productInfo[0]);
-      } else {
-        alert('Failed to load data');
-      }
-    });
+    axios
+      .get(`/api/products/${productId}?type=single`)
+      .then((response) => {
+        setProduct(response.data[0]);
+      })
+      .catch((err) => alert(err));
   }, [productId]);
 
   return (

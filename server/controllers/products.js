@@ -59,18 +59,16 @@ function getProduct(req, res) {
   let type = req.query.type;
   let productId = req.params.id;
 
-  console.log(productId);
-
   if (type === 'array') {
     let id = req.params.id.split(',');
     productId = id;
   }
 
-  Product.find({ _id: productId })
+  Product.find({ _id: { $in: productId } })
     .populate('userId')
     .exec((err, productInfo) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).send({ success: true, productInfo });
+      return res.status(200).send(productInfo);
     });
 }
 
