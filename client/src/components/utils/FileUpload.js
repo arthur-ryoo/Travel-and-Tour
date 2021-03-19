@@ -12,7 +12,7 @@ function FileUpload(props) {
       header: { 'content-type': 'multipart/form-data' },
     };
     formData.append('file', files[0]);
-    axios.post('/api/products/image/new', formData, config).then((response) => {
+    axios.post('/api/products/images', formData, config).then((response) => {
       if (response.status === 200) {
         setImage([...image, response.data.imageUrl]);
         props.handleImage([...image, response.data.imageUrl]);

@@ -6,6 +6,7 @@ router.get('/auth', auth, usersController.auth);
 router.post('/register', usersController.register);
 router.post('/login', usersController.login);
 router.get('/logout', auth, usersController.logout);
-router.post('/addToCart', auth, usersController.addToCart);
+router.post('/carts/add', auth, usersController.addToCart);
+router.get('/carts/remove/:id', auth, usersController.removeFromCart);
 
 module.exports = router;
