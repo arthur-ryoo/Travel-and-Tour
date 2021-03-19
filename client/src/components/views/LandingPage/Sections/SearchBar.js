@@ -4,7 +4,7 @@ import { Input } from 'antd';
 const { Search } = Input;
 
 function SearchBar(props) {
-  const handleSearchKeyword = (event) => {
+  const handleChange = (event) => {
     props.onChange(event.target.value);
   };
 
@@ -12,7 +12,7 @@ function SearchBar(props) {
     <div>
       <Search
         placeholder="Search"
-        onChange={handleSearchKeyword}
+        onChange={handleChange}
         style={{ width: 200 }}
         value={props.value}
       />
