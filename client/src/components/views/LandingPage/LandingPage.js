@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Col, Card, Row, Button } from 'antd';
+import { Col, Card, Row, Button, Empty } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import ImageSlider from '../../utils/ImageSlider';
 import CheckBox from './Sections/CheckBox';
@@ -113,7 +113,7 @@ function LandingPage() {
             alignItems: 'center',
           }}
         >
-          <h2>No products available</h2>
+          <Empty description="No Products Available" />
         </div>
       ) : (
         <div style={{ marginTop: '36px' }}>
