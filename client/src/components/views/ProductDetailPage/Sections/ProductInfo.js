@@ -14,8 +14,8 @@ function ProductInfo(props) {
 
   const openNotification = () => {
     const args = {
-      message: 'Successfuly added to your cart',
-      duration: 3,
+      message: 'Successfully added to your cart',
+      duration: 1.5,
       icon: <CheckCircleTwoTone />,
     };
     notification.open(args);
