@@ -1,30 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Collapse, Radio } from 'antd';
 
 const { Panel } = Collapse;
 
 function RadioBox(props) {
-  const [value, setValue] = useState(0);
-
-  const renderRadioBox = () =>
-    props.list &&
-    props.list.map((item) => (
-      <Radio key={item._id} value={item._id}>
-        {item.name}
-      </Radio>
-    ));
-
   const handleChange = (event) => {
-    setValue(event.target.value);
-    props.handleFilters(event.target.value);
+    props.onChange(event.target.value);
   };
 
   return (
     <div>
       <Collapse defaultActiveKey={['0']}>
-        <Panel header="Price" key="1">
-          <Radio.Group onChange={handleChange} value={value}>
-            {renderRadioBox()}
+        <Panel header="Sort By" key="1">
+          <Radio.Group onChange={handleChange}>
+            <Radio value="-price">Price (highest first)</Radio>
+            <Radio value="price">Price (lowest first)</Radio>
+            <Radio value="-createdAt">Newest</Radio>
+            <Radio value="createdAt">Oldest</Radio>
           </Radio.Group>
         </Panel>
       </Collapse>

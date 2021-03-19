@@ -6,13 +6,32 @@ class APIFeatures {
 
   filter() {
     let queryObj = { ...this.queryString };
-    const excludedFields = ['page', 'sort', 'limit', 'fields'];
-    excludedFields.forEach((e) => delete queryObj[e]);
+    const excludedFields = ['page', 'sort', 'limit', 'search'];
+    excludedFields.forEach((element) => delete queryObj[element]);
 
-    let queryStr = JSON.stringify(queryObj);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
-    queryObj = JSON.parse(queryStr);
-    this.query = this.query.find(queryObj);
+    let newQueryObj = {};
+    let filteredObj = {};
+
+    for (let key in queryObj) {
+      if (queryObj[key].length > 0) {
+        newQueryObj = queryObj[key];
+        filteredObj['continent'] = JSON.parse(queryObj[key]).continent;
+        if (filteredObj['continent'].length === 0) {
+          filteredObj = {};
+        }
+      }
+    }
+
+    this.query = this.query.find(filteredObj);
+    return this;
+  }
+
+  search() {
+    if (this.queryString.search) {
+      this.query = this.query.find({
+        $text: { $search: this.queryString.search },
+      });
+    }
     return this;
   }
 

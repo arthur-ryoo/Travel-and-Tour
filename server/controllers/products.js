@@ -24,20 +24,28 @@ function uploadProduct(req, res) {
 }
 
 async function getAllProducts(req, res) {
-  const total = await Product.countDocuments({});
-  const totalPages = await Math.ceil((total / req.query.limit) * 1);
-
   try {
     const features = new APIFeatures(Product.find(), req.query)
       .filter()
+      .search()
       .sort()
       .paginate();
-    const products = await features.query;
+    const products = await features.query.populate('userId');
+
+    const resultSize = new APIFeatures(Product.find(), req.query)
+      .filter()
+      .search()
+      .sort();
+    const results = await resultSize.query;
+
+    const total = results.length;
+    const totalPages = Math.ceil((total / req.query.limit) * 1);
+
     res.status(200).json({
       success: true,
-      results: products.length,
-      products,
+      results: total,
       totalPages,
+      products,
     });
   } catch (err) {
     res.status(404).json({
@@ -47,8 +55,28 @@ async function getAllProducts(req, res) {
   }
 }
 
+function getProduct(req, res) {
+  let type = req.query.type;
+  let productId = req.params.id;
+
+  console.log(productId);
+
+  if (type === 'array') {
+    let id = req.params.id.split(',');
+    productId = id;
+  }
+
+  Product.find({ _id: productId })
+    .populate('userId')
+    .exec((err, productInfo) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).send({ success: true, productInfo });
+    });
+}
+
 module.exports = {
   uploadImage,
   uploadProduct,
   getAllProducts,
+  getProduct,
 };
