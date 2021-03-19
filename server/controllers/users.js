@@ -64,6 +64,7 @@ function logout(req, res) {
 function addToCart(req, res) {
   User.findOne({ _id: req.user._id }, (err, userInfo) => {
     let isDuplicated = false;
+
     userInfo.cart.forEach((item) => {
       if (item.id === req.body.productId) {
         isDuplicated = true;
@@ -74,12 +75,12 @@ function addToCart(req, res) {
       User.findOneAndUpdate(
         { _id: req.user._id, 'cart.id': req.body.productId },
         { $inc: { 'cart.$.quantity': 1 } },
-        { new: true }
-      ),
+        { new: true },
         (err, userInfo) => {
           if (err) return res.status(400).json({ success: false, err });
           res.status(200).send(userInfo.cart);
-        };
+        }
+      );
     } else {
       User.findOneAndUpdate(
         {
