@@ -1,3 +1,4 @@
+const { Product } = require('../models/Product');
 const { User } = require('../models/User');
 
 function auth(req, res) {
@@ -105,10 +106,36 @@ function addToCart(req, res) {
   });
 }
 
+function removeFromCart(req, res) {
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    {
+      '$pull': { 'cart': { 'id': req.params.id } },
+    },
+    { new: true },
+    (err, userInfo) => {
+      let cart = userInfo.cart;
+      let array = cart.map((item) => {
+        return item.id;
+      });
+
+      Product.find({ _id: { $in: array } })
+        .populate('userId')
+        .exec((err, productInfo) => {
+          return res.status(200).json({
+            productInfo,
+            cart,
+          });
+        });
+    }
+  );
+}
+
 module.exports = {
   auth,
   register,
   login,
   logout,
   addToCart,
+  removeFromCart,
 };

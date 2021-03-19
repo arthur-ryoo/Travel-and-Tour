@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Descriptions } from 'antd';
+import { Button, Descriptions, notification } from 'antd';
+import { CheckCircleTwoTone } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../../_actions/user_action';
 
@@ -8,6 +9,16 @@ function ProductInfo(props) {
 
   const handleClick = () => {
     dispatch(addToCart(props.product._id));
+    openNotification();
+  };
+
+  const openNotification = () => {
+    const args = {
+      message: 'Successfuly added to your cart',
+      duration: 3,
+      icon: <CheckCircleTwoTone />,
+    };
+    notification.open(args);
   };
 
   return (
