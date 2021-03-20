@@ -7,7 +7,7 @@ function ProductImage(props) {
   useEffect(() => {
     if (props.image && props.image.length > 0) {
       let images = [];
-      props.image.map((item) =>
+      props.image.forEach((item) =>
         images.push({
           original: item,
           thumbnail: item,
