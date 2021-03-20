@@ -8,5 +8,6 @@ router.post('/login', usersController.login);
 router.get('/logout', auth, usersController.logout);
 router.post('/carts/add', auth, usersController.addToCart);
 router.get('/carts/remove/:id', auth, usersController.removeFromCart);
+router.post('/payments', auth, usersController.savePaymentInfo);
 
 module.exports = router;

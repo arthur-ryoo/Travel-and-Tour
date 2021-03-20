@@ -6,6 +6,7 @@ import {
   ADD_TO_CART,
   GET_CART_ITEMS,
   REMOVE_CART_ITEM,
+  ON_SUCCESS_PAYMENT,
 } from '../_actions/types';
 
 export default function userReducer(state = {}, action) {
@@ -32,6 +33,12 @@ export default function userReducer(state = {}, action) {
       return {
         ...state,
         cartDetail: action.payload.productInfo,
+        userData: { ...state.userData, cart: action.payload.cart },
+      };
+    case ON_SUCCESS_PAYMENT:
+      return {
+        ...state,
+        cartDetail: action.payload.cartDetail,
         userData: { ...state.userData, cart: action.payload.cart },
       };
     default:

@@ -7,8 +7,9 @@ import {
   ADD_TO_CART,
   GET_CART_ITEMS,
   REMOVE_CART_ITEM,
+  ON_SUCCESS_PAYMENT,
 } from './types';
-import { USER_SERVER } from '../Config';
+import { USER_SERVER, PRODUCT_SERVER } from '../Config';
 
 export function loginUser(dataToSubmit) {
   const request = axios
@@ -66,7 +67,7 @@ export function auth() {
 
 export function getCartItems(cartItems, userCart) {
   const request = axios
-    .get(`/api/products/${cartItems}?type=array`)
+    .get(`${PRODUCT_SERVER}/${cartItems}?type=array`)
     .then((response) => {
       userCart.forEach((cartItems) => {
         response.data.forEach((productDetail, index) => {
@@ -100,6 +101,17 @@ export function removeCartItem(productId) {
 
   return {
     type: REMOVE_CART_ITEM,
+    payload: request,
+  };
+}
+
+export function onSuccessPayment(data) {
+  const request = axios
+    .post(`${USER_SERVER}/payments`, data)
+    .then((response) => response.data);
+
+  return {
+    type: ON_SUCCESS_PAYMENT,
     payload: request,
   };
 }
