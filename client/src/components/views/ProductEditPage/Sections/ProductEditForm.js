@@ -1,7 +1,8 @@
-import React, { useReducer } from 'react';
-import FileUpload from '../../utils/FileUpload';
+import React, { useEffect, useReducer } from 'react';
+import FileUpload from '../../../utils/FileUpload';
 import { Typography, Button, Form, Input } from 'antd';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -37,7 +38,21 @@ const Continents = [
   },
 ];
 
-function UploadProductPage(props) {
+function ProductEditForm(props) {
+  const history = useHistory();
+
+  useEffect(() => {
+    if (props.product) {
+      setUserInput({
+        title: props.product.title,
+        description: props.product.description,
+        price: props.product.price,
+        continent: props.product.continent,
+        image: props.product.image,
+      });
+    }
+  }, [props]);
+
   const [userInput, setUserInput] = useReducer(
     (state, newState) => ({ ...state, ...newState }),
     {
@@ -63,7 +78,6 @@ function UploadProductPage(props) {
     }
 
     const body = {
-      userId: props.user.userData._id,
       title,
       price,
       description,
@@ -71,10 +85,10 @@ function UploadProductPage(props) {
       image,
     };
 
-    axios.post('/api/products', body).then((response) => {
+    axios.patch(`/api/products/${props.productId}`, body).then((response) => {
       if (response.data.success) {
-        alert('Successfuly submitted!');
-        props.history.push('/');
+        alert('Successfuly updated!');
+        history.push(`/product/${props.productId}`);
       } else {
         alert('Failed to submit!');
       }
@@ -86,8 +100,8 @@ function UploadProductPage(props) {
   return (
     <div style={{ width: '80%', margin: '2rem auto' }}>
       <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <Title level={2}>Upload Product</Title>
-        <FileUpload handleImage={handleImage} />
+        <Title level={2}>Update Product</Title>
+        <FileUpload handleImage={handleImage} image={image} />
       </div>
       <Form onFinish={handleSubmit}>
         <br />
@@ -124,11 +138,11 @@ function UploadProductPage(props) {
         <br />
         <br />
         <Button type="primary" htmlType="submit">
-          Upload
+          Update
         </Button>
       </Form>
     </div>
   );
 }
 
-export default UploadProductPage;
+export default ProductEditForm;

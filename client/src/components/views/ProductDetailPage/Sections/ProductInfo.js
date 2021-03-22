@@ -1,10 +1,19 @@
-import React from 'react';
-import { Button, Descriptions, notification } from 'antd';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Descriptions, notification, Popover } from 'antd';
 import { CheckCircleTwoTone } from '@ant-design/icons';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../../_actions/user_action';
+import { useSelector } from 'react-redux';
+import './ProductInfo.css';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 function ProductInfo(props) {
+  const history = useHistory();
+
+  const user = useSelector((state) => state.user);
+  const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
   const handleClick = () => {
@@ -19,6 +28,21 @@ function ProductInfo(props) {
       icon: <CheckCircleTwoTone />,
     };
     notification.open(args);
+  };
+
+  const handleDelete = () => {
+    axios.delete(`/api/products/${props.product._id}`).then((response) => {
+      if (response.data.success) {
+        alert('Successfuly deleted!');
+        history.push('/');
+      } else {
+        alert('Failed to delete!');
+      }
+    });
+  };
+
+  const handleVisibleChange = (visible) => {
+    setVisible(visible);
   };
 
   return (
@@ -39,10 +63,46 @@ function ProductInfo(props) {
       <div
         style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}
       >
-        <Button size="large" shape="round" type="danger" onClick={handleClick}>
+        <Button size="large" type="primary" onClick={handleClick}>
           Add to Cart
         </Button>
       </div>
+      {user.userData && user.userData.isAdmin ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginTop: '2rem',
+          }}
+        >
+          <div style={{ margin: '0rem 0.5rem' }}>
+            <Link to={`/product/${props.product._id}/edit`}>
+              <Button size="large" type="primary">
+                Edit
+              </Button>
+            </Link>
+          </div>
+          <div style={{ margin: '0rem 0.5rem' }}>
+            <Popover
+              content={
+                <Button size="medium" type="danger" onClick={handleDelete}>
+                  Delete
+                </Button>
+              }
+              title="Are you sure to delete?"
+              trigger="click"
+              visible={visible}
+              onVisibleChange={handleVisibleChange}
+            >
+              <Button size="large" type="danger">
+                Delete
+              </Button>
+            </Popover>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 }

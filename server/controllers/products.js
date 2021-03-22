@@ -72,9 +72,62 @@ function getProduct(req, res) {
     });
 }
 
+async function editProduct(req, res) {
+  try {
+    const productInfo = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    ).populate('userId');
+    res.status(200).json({
+      success: true,
+      productInfo,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: err,
+    });
+  }
+}
+
+async function deleteProduct(req, res) {
+  try {
+    const productInfo = await Product.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+      success: true,
+      productInfo: null,
+    });
+  } catch (err) {
+    res.status(404).json({
+      success: false,
+      message: err,
+    });
+  }
+}
+
+function countProductView(req, res) {
+  Product.findOneAndUpdate(
+    { _id: req.params.id },
+    {
+      $inc: { views: 1 },
+    },
+    { new: true },
+    (err, response) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200);
+    }
+  );
+}
+
 module.exports = {
   uploadImage,
   uploadProduct,
   getAllProducts,
   getProduct,
+  editProduct,
+  deleteProduct,
+  countProductView,
 };
