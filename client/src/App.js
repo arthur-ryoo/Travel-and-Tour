@@ -10,7 +10,9 @@ import NavBar from './components/views/NavBar/NavBar';
 import Footer from './components/views/Footer/Footer';
 import UploadProductPage from './components/views/UploadProductPage/UploadProductPage';
 import ProductDetailPage from './components/views/ProductDetailPage/ProductDetailPage';
+import ProductEditPage from './components/views/ProductEditPage/ProductEditPage';
 import CartPage from './components/views/CartPage/CartPage';
+import OrderHistoryPage from './components/views/OrderHistoryPage/OrderHistoryPage';
 
 function App() {
   return (
@@ -18,20 +20,38 @@ function App() {
       <NavBar />
       <div style={{ paddingTop: '69px', minHeight: 'calc(100vh - 80px)' }}>
         <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null)} />
-          <Route exact path="/login" component={Auth(LoginPage, false)} />
-          <Route exact path="/register" component={Auth(RegisterPage, false)} />
+          <Route exact path="/" component={Auth(LandingPage, null, null)} />
+          <Route exact path="/login" component={Auth(LoginPage, false, null)} />
+          <Route
+            exact
+            path="/register"
+            component={Auth(RegisterPage, false, null)}
+          />
           <Route
             exact
             path="/product/upload"
-            component={Auth(UploadProductPage, true)}
+            component={Auth(UploadProductPage, true, true)}
           />
           <Route
             exact
             path="/product/:productId"
-            component={Auth(ProductDetailPage, null)}
+            component={Auth(ProductDetailPage, null, null)}
           />
-          <Route exact path="/user/cart" component={Auth(CartPage, true)} />
+          <Route
+            exact
+            path="/user/cart"
+            component={Auth(CartPage, true, null)}
+          />
+          <Route
+            exact
+            path="/account/orders"
+            component={Auth(OrderHistoryPage, true, null)}
+          />
+          <Route
+            exact
+            path="/product/:productId/edit"
+            component={Auth(ProductEditPage, true, null)}
+          />
         </Switch>
       </div>
       <Footer />
