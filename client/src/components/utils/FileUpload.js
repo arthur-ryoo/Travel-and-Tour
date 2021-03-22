@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dropzone from 'react-dropzone';
 import { PlusOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 function FileUpload(props) {
   const [image, setImage] = useState([]);
+
+  useEffect(() => {
+    if (props.image) {
+      setImage(props.image);
+    }
+  }, [props]);
 
   const handleDrop = (files) => {
     let formData = new FormData();
