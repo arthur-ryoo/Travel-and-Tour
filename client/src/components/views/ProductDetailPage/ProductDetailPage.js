@@ -6,7 +6,6 @@ import { Row, Col } from 'antd';
 
 function ProductDetailPage(props) {
   const [product, setProduct] = useState({});
-
   const productId = props.match.params.productId;
   useEffect(() => {
     axios
@@ -34,7 +33,7 @@ function ProductDetailPage(props) {
           <ProductImage image={product.image} />
         </Col>
         <Col lg={12} sm={24}>
-          <ProductInfo product={product} />
+          <ProductInfo product={product} user={props.user.userData} />
         </Col>
       </Row>
     </div>

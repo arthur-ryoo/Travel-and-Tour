@@ -17,8 +17,12 @@ function ProductInfo(props) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(addToCart(props.product._id));
-    openNotification();
+    if (!props.user.isAuth) {
+      history.push('/login');
+    } else {
+      dispatch(addToCart(props.product._id));
+      openNotification();
+    }
   };
 
   const openNotification = () => {
