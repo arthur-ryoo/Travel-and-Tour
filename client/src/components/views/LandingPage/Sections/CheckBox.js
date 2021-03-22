@@ -28,7 +28,7 @@ function CheckBox(props) {
           onChange={() => handleToggle(item._id)}
           checked={checkedValues.indexOf(item._id) === -1 ? false : true}
         />
-        <span>{item.name}</span>
+        <span style={{ margin: '0 8px' }}>{item.name}</span>
       </React.Fragment>
     ));
 
