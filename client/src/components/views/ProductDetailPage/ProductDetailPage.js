@@ -15,12 +15,7 @@ function ProductDetailPage(props) {
       })
       .catch((err) => alert(err));
 
-    axios
-      .get(`/api/products/${productId}/view`)
-      .then((response) => {
-        setProduct(response.data[0]);
-      })
-      .catch((err) => alert(err));
+    axios.get(`/api/products/${productId}/view`);
   }, [productId]);
 
   return (
