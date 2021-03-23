@@ -21,13 +21,15 @@ function OrderHistoryPage(props) {
           <Empty description="No Order History Available" />
         </div>
       ) : (
-        <table class="table">
+        <table className="table">
           <thead>
-            <th>Product Title</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Date of Purchase</th>
-            <th>Payment ID</th>
+            <tr>
+              <th>Product Title</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Date of Purchase</th>
+              <th>Payment ID</th>
+            </tr>
           </thead>
           <tbody>
             {props.user.userData &&
