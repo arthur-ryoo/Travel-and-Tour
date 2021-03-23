@@ -12,11 +12,11 @@ function RadioBox(props) {
     <div>
       <Collapse defaultActiveKey={['0']}>
         <Panel header="Sort By" key="1">
-          <Radio.Group onChange={handleChange}>
-            <Radio value="-price">Price (highest first)</Radio>
-            <Radio value="price">Price (lowest first)</Radio>
+          <Radio.Group onChange={handleChange} value="-createdAt">
             <Radio value="-createdAt">Newest</Radio>
             <Radio value="createdAt">Oldest</Radio>
+            <Radio value="-price">Price (highest first)</Radio>
+            <Radio value="price">Price (lowest first)</Radio>
           </Radio.Group>
         </Panel>
       </Collapse>
