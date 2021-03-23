@@ -87,7 +87,7 @@ function ProductEditForm(props) {
 
     axios.patch(`/api/products/${props.productId}`, body).then((response) => {
       if (response.data.success) {
-        alert('Successfuly updated!');
+        alert('Successfully updated!');
         history.push(`/product/${props.productId}`);
       } else {
         alert('Failed to submit!');

@@ -73,7 +73,7 @@ function UploadProductPage(props) {
 
     axios.post('/api/products', body).then((response) => {
       if (response.data.success) {
-        alert('Successfuly submitted!');
+        alert('Successfully submitted!');
         props.history.push('/');
       } else {
         alert('Failed to submit!');

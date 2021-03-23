@@ -37,7 +37,7 @@ function ProductInfo(props) {
   const handleDelete = () => {
     axios.delete(`/api/products/${props.product._id}`).then((response) => {
       if (response.data.success) {
-        alert('Successfuly deleted!');
+        alert('Successfully deleted!');
         history.push('/');
       } else {
         alert('Failed to delete!');
