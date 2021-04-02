@@ -13,7 +13,7 @@ function LandingPage() {
   const [product, setProduct] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(0);
-  const [limit] = useState(4);
+  const [limit] = useState(8);
   const [filters, setFilters] = useState({
     continent: [],
     price: [],
