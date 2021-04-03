@@ -23,6 +23,56 @@ function LoginPage(props) {
     ? localStorage.getItem('rememberMe')
     : '';
 
+  const handleAdminSubmit = (event) => {
+    event.preventDefault();
+
+    let dataToSubmit = {
+      email: 'admin@traveltour.com',
+      password: 'Xmfpqmf',
+    };
+
+    dispatch(loginUser(dataToSubmit))
+      .then((response) => {
+        if (response.payload.loginSuccess) {
+          window.localStorage.setItem('userId', response.payload.userId);
+          props.history.push('/');
+        } else {
+          setFormErrorMessage('Your email or password is not vaild');
+        }
+      })
+      .catch((err) => {
+        setFormErrorMessage('Failed to log in');
+        setTimeout(() => {
+          setFormErrorMessage('');
+        }, 3000);
+      });
+  };
+
+  const handleUserSubmit = (event) => {
+    event.preventDefault();
+
+    let dataToSubmit = {
+      email: 'user@traveltour.com',
+      password: 'Xmfpqmf',
+    };
+
+    dispatch(loginUser(dataToSubmit))
+      .then((response) => {
+        if (response.payload.loginSuccess) {
+          window.localStorage.setItem('userId', response.payload.userId);
+          props.history.push('/');
+        } else {
+          setFormErrorMessage('Your email or password is not vaild');
+        }
+      })
+      .catch((err) => {
+        setFormErrorMessage('Failed to log in');
+        setTimeout(() => {
+          setFormErrorMessage('');
+        }, 3000);
+      });
+  };
+
   return (
     <Formik
       initialValues={{
@@ -78,9 +128,10 @@ function LoginPage(props) {
           handleBlur,
           handleSubmit,
         } = props;
+
         return (
           <div className="app">
-            <Title level={2}>Log In</Title>
+            <Title level={2}>Login</Title>
             <form onSubmit={handleSubmit} style={{ width: '350px' }}>
               <Form.Item required>
                 <Input
@@ -155,11 +206,42 @@ function LoginPage(props) {
                     disabled={isSubmitting}
                     onSubmit={handleSubmit}
                   >
-                    Log in
+                    Log In
                   </Button>
                 </div>
-                Or <a href="/register">register now!</a>
+                Or <a href="/register">Sign up now!</a>
               </Form.Item>
+            </form>
+
+            <form
+              onSubmit={handleAdminSubmit}
+              style={{ width: '350px', marginBottom: '20px' }}
+            >
+              <div>
+                <Button
+                  type="danger"
+                  htmlType="submit"
+                  className="login-form-button"
+                  style={{ minWidth: '100%' }}
+                  onSubmit={handleAdminSubmit}
+                >
+                  Demo Log In as Admin
+                </Button>
+              </div>
+            </form>
+
+            <form onSubmit={handleUserSubmit} style={{ width: '350px' }}>
+              <div>
+                <Button
+                  type="danger"
+                  htmlType="submit"
+                  className="login-form-button"
+                  style={{ minWidth: '100%' }}
+                  onSubmit={handleUserSubmit}
+                >
+                  Demo Log In as User
+                </Button>
+              </div>
             </form>
           </div>
         );
