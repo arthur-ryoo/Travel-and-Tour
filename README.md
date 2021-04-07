@@ -1,5 +1,6 @@
 # Travel and Tour 
 A role-based e-commerce website for travel deals deployed with AWS EC2.
+![travel_tour](https://user-images.githubusercontent.com/51396212/113906800-7d187280-9789-11eb-88f6-397b3d9cdbf6.png)
 
 # Links
 ### Demo: [Travel and Tour](http://ec2-54-176-229-58.us-west-1.compute.amazonaws.com/)
