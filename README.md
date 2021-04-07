@@ -7,7 +7,7 @@ A role-based e-commerce website for travel deals deployed with AWS EC2.
 # Technologies
 - Front-end development
 	- React, Redux
-	- Ant Design
+	- Ant Design and CSS Media Queries for responsive layouts
 - Back-end development
 	- Node.js
 	- Express
