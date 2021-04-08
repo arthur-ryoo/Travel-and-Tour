@@ -20,7 +20,7 @@ A role-based e-commerce website for travel deals deployed with AWS EC2.
 	
 # Features
 - User & admin login / Registration
-- Role-based authentication
+- Role-based authorization
 - Sorting, searching, and pagination for products
 - Add products to cart
 - Purchase products with PayPal
