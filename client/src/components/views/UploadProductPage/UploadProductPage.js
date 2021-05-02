@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import FileUpload from '../../utils/FileUpload';
 import { Typography, Button, Form, Input } from 'antd';
 import axios from 'axios';
+import './UploadProductPage.css';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -84,8 +85,8 @@ function UploadProductPage(props) {
   const { title, price, description, continent, image } = userInput;
 
   return (
-    <div style={{ width: '80%', margin: '2rem auto' }}>
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+    <div className="container">
+      <div className="sub_container">
         <Title level={2}>Upload Product</Title>
         <FileUpload handleImage={handleImage} />
       </div>

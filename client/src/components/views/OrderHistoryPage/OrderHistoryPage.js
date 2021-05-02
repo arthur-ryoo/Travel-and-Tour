@@ -5,19 +5,12 @@ import './OrderHistoryPage.css';
 
 function OrderHistoryPage(props) {
   return (
-    <div style={{ width: '80%', margin: '3rem auto' }}>
-      <div style={{ textAlign: 'center' }}>
+    <div className="container">
+      <div className="sub_container">
         <h1>Order History</h1>
       </div>
       {props.user.userData && props.user.userData.history.length === 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            height: '300px',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <div className="no_order_history">
           <Empty description="No Order History Available" />
         </div>
       ) : (

@@ -57,4 +57,20 @@
     font-weight: bold;
     text-align: left;
   }
+
+  .container {
+    width: 80%;
+    margin: 3rem auto;
+  }
+
+  .sub_container {
+    text-align: center;
+  }
+
+  .no_order_history {
+    display: flex;
+    height: 300px;
+    justify-content: center;
+    align-items: center;
+  }
 }

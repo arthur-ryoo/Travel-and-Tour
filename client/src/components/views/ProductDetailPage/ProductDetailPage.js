@@ -3,6 +3,7 @@ import axios from 'axios';
 import ProductImage from './Sections/ProductImage';
 import ProductInfo from './Sections/ProductInfo';
 import { Row, Col } from 'antd';
+import './ProductDetailPage.css';
 
 function ProductDetailPage(props) {
   const [product, setProduct] = useState({});
@@ -19,8 +20,8 @@ function ProductDetailPage(props) {
   }, [productId]);
 
   return (
-    <div style={{ width: '100%', padding: '3rem 4rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div className="container">
+      <div className="sub_container">
         <h1>{product.title}</h1>
       </div>
       <Row gutter={[16, 16]}>
