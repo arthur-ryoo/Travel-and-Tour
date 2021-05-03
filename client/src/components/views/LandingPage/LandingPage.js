@@ -8,6 +8,7 @@ import CheckBox from './Sections/CheckBox';
 import RadioBox from './Sections/RadioBox';
 import SearchBar from './Sections/SearchBar';
 import { continents } from './Sections/Data';
+import './LandingPage.css';
 
 function LandingPage() {
   const [product, setProduct] = useState([]);
@@ -76,14 +77,8 @@ function LandingPage() {
   };
 
   return (
-    <div style={{ width: '75%', margin: '3rem auto' }}>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end',
-          margin: '1rem auto',
-        }}
-      >
+    <div className="container">
+      <div className="sub_container">
         <SearchBar value={search} onChange={handleSearchKeyword} />
       </div>
       <Row gutter={[16, 16]}>
@@ -101,29 +96,16 @@ function LandingPage() {
       </Row>
 
       {product.length === 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            height: '300px',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
+        <div className="no_products">
           <Empty description="No Products Available" />
         </div>
       ) : (
-        <div style={{ marginTop: '36px' }}>
+        <div className="card_container">
           <Row gutter={[16, 16]}>{renderCards}</Row>
         </div>
       )}
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          margin: '1rem 0rem',
-        }}
-      >
+      <div className="page_number_container">
         <Button onClick={goToPrevious}>Previous</Button>
         {pages.map((pageIndex, index) => (
           <Button key={index} onClick={() => setPageNumber(pageIndex + 1)}>

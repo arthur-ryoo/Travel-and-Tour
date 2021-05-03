@@ -1,0 +1,27 @@
+.container {
+  width: 75%;
+  margin: 3rem auto;
+}
+
+.sub_container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 1rem auto;
+}
+
+.no_products {
+  display: flex;
+  height: 300px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card_container {
+  margin-top: 36px;
+}
+
+.page_number_container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0rem;
+}

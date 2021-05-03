@@ -8,6 +8,7 @@ import {
 import UserCardBlock from './Sections/UserCardBlock';
 import { Empty, Result } from 'antd';
 import PayPal from '../../utils/PayPal';
+import './CartPage.css';
 
 function CartPage(props) {
   const [total, setTotal] = useState(0);
@@ -66,7 +67,7 @@ function CartPage(props) {
   };
 
   return (
-    <div style={{ width: '85%', margin: '3rem auto' }}>
+    <div className="container">
       <h1>My Cart</h1>
       <UserCardBlock
         product={props.user.cartDetail}
@@ -74,14 +75,8 @@ function CartPage(props) {
       />
 
       {showTotal ? (
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-          }}
-        >
-          <div style={{ marginTop: '3rem', marginBottom: '1.5rem' }}>
+        <div className="sub_container">
+          <div className="total_amount">
             <h2>Total Amount: ${total}</h2>
           </div>
           <PayPal total={total} onSuccess={handleTransaction} />
@@ -89,7 +84,7 @@ function CartPage(props) {
       ) : showSuccess ? (
         <Result status="success" title="Successfully Purchased Items" />
       ) : (
-        <div style={{ marginTop: '3rem' }}>
+        <div className="no_items">
           <Empty description="No Items Available" />
         </div>
       )}
